@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ADMIN | BÀI ĐĂNG</title>
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/form-style.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css">
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <!---->
+    <script src="https://cdn.tiny.cloud/1/7dza6b4k84mruc8aqfxwcn6fb4jdkknqdhba08g53bydxkka/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <!---->
+<style>
+    .input-group-text {
+        width: 200px
+    }
+</style>
+</head>
+<body>
+<th:block lang="vi" th:include="fragments/admin/navigation :: navigation"></th:block>
+<main>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center" style="margin: 40px;">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">QUẢN LÝ BÀI ĐĂNG</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="wrapper img">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="contact-wrap w-100 p-md-5 p-4">
+                                    <form method="POST" id="contactForm" name="contactForm" class="contactForm"
+                                          th:action="@{/admin/posts/update}" th:object="${post}">
+                                        <input th:field="*{id}" type="hidden"/>
+                                        <!--INPUT - tittle-->
+                                        <div class="form-select tittle" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Tựa đề:</span>
+                                            <input type="text" th:field="*{title}"
+                                                   class="form-control" placeholder="Nhập Tựa đề"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <!--INPUT - poster-->
+                                        <div class="form-select poster" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Áp phích:</span>
+                                            <input type="url" th:field="*{verticalImgUrl}"
+                                                   class="form-control" placeholder="Nhập đường dẫn Áp phích"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <div style="margin:10px 20px 10px 0 ;" th:if="*{verticalImgUrl}">
+                                            <img id="poster-movie" style="max-width:50%;" th:src="*{verticalImgUrl}" alt="">
+                                        </div>
+                                        <!--INPUT - banner-->
+                                        <div class="form-select banner" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Ảnh bìa:</span>
+                                            <input type="url" th:field="*{horizontalImgUrl}"
+                                                   class="form-control" placeholder="Nhập đường dẫn Ảnh bìa"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <div style="margin:10px 20px 10px 0 ;" th:if="*{horizontalImgUrl}">
+                                            <img id="banner-movie" style="max-width:50%;" th:src="*{horizontalImgUrl}" alt="">
+                                        </div>
+                                        <!--TEXTAREA - description-->
+                                        <div class="form-select description" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Mô tả:</span>
+                                            <textarea rows="15" cols="70" th:field="*{longDesc}"
+                                                      placeholder="Nhập đoạn Mô tả"
+                                                      aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                            </textarea>
+                                        </div>
+                                        <!--TOGGLE - type-->
+                                        <div class="input-group" style="margin:10px 20px 10px 0 ;">
+                                            <input id="check-type" name="checkType" type="checkbox"
+                                                   th:checked="${post.type==1}"
+                                                   data-toggle="toggle" data-onstyle="primary" data-offstyle="secondary"
+                                                   data-on="Tin tức" data-off="Bài Đánh giá">
+                                        </div>
+                                        <!--TOGGLE - active-->
+                                        <div class="input-group" style="margin:10px 20px 10px 0 ;">
+                                            <input id="check-active" name="checkActive" type="checkbox"
+                                                   th:checked="${post.isActive==1}"
+                                                   data-toggle="toggle" data-onstyle="primary" data-offstyle="secondary"
+                                                   data-on="Đang hoạt động" data-off="Không hoạt động">
+                                        </div>
+                                        <!--BTN - save-->
+                                        <div class="form-group">
+                                            <input id="btn-post" type="submit" value="LƯU" class="btn btn-primary">
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="error--login" class="swal-overlay" tabindex="-1">
+        <div class="swal-modal" role="dialog" aria-modal="true">
+            <div class="swal-icon swal-icon--error">
+                <div class="swal-icon--error__x-mark">
+                    <span class="swal-icon--error__line swal-icon--error__line--left"></span>
+                    <span class="swal-icon--error__line swal-icon--error__line--right"></span>
+                </div>
+            </div>
+            <div class="swal-title" style="">Đầu vào không được để trống!</div>
+            <div class="swal-footer">
+                <div class="swal-button-container">
+                    <button class="swal-button swal-button--confirm">ĐỒNG Ý</button>
+                    <div class="swal-button__loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $("#btn-post").click(function (event) {
+            event.preventDefault();
+            var emty = false
+            $(".form-control").each(function () {
+                if ($(this).val() == '0' || $(this).val() == '' || $(this).val() == null) {
+                    emty = true
+                }
+                console.log($(this).val())
+            })
+            if (emty) {
+                $("#error--login").addClass("swal-overlay--show-modal")
+            } else {
+                $("#contactForm").submit();
+            }
+        })
+        $(document).ready(function () {
+            $("#error--login").click(function (e) {
+                $(this).removeClass("swal-overlay--show-modal");
+            });
+
+        });
+    });
+
+</script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

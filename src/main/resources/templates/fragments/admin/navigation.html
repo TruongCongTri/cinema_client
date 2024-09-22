@@ -1,0 +1,124 @@
+<div th:fragment="navigation">
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+            </a>
+        </div>
+        <div class="side-inner">
+            <div class="profile">
+                <img src="https://i.ibb.co/hsrZ5zT/user-icon.jpg" alt="Image" class="img-fluid">
+                <h3 class="name">ADMIN</h3>
+            </div>
+            <div class="nav-menu">
+                <ul>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseCheckin"
+                                aria-expanded="false" aria-controls="collapseCheckin">
+                            SOÁT VÉ
+                        </button>
+                        <div class="collapse" id="collapseCheckin" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/tickets}">SOÁT VÉ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff; background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseAdmin"
+                                aria-expanded="false" aria-controls="collapseAdmin">
+                            MÀN HÌNH
+                        </button>
+                        <div class="collapse" id="collapseAdmin" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin}">ADMIN</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/}">USER</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseAccount"
+                                aria-expanded="false" aria-controls="collapseAccount">
+                            TÀI KHOẢN
+                        </button>
+                        <div class="collapse" id="collapseAccount" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/accounts}">TÀI KHOẢN</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/bills}">HÓA ĐƠN</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseMovie"
+                                aria-expanded="false" aria-controls="collapseMovie">
+                            PHIM
+                        </button>
+                        <div class="collapse" id="collapseMovie" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/movies}">PHIM</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/schedules}">LỊCH CHIẾU</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseBranch"
+                                aria-expanded="false" aria-controls="collapseBranch">
+                            CƠ SỞ VẬT CHẤT
+                        </button>
+                        <div class="collapse" id="collapseBranch" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/branches}">CHI NHÁNH</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/rooms}">PHÒNG CHIẾU</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseProperty"
+                                aria-expanded="false" aria-controls="collapseProperty">
+                            THUỘC TÍNH CỦA PHIM
+                        </button>
+                        <div class="collapse" id="collapseProperty" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/directors}">ĐẠO DIỄN</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/actors}">DIỄN VIÊN</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/genres}">THỂ LOẠI PHIM</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/certifications}">GIÓI HẠN ĐỘ TUỔI</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapsePost"
+                                aria-expanded="false" aria-controls="collapsePost">
+                            BÀI ĐĂNG
+                        </button>
+                        <div class="collapse" id="collapsePost" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/promotions}">ƯU ĐÃI</a>
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/admin/posts}">BÀI ĐĂNG</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                style="width: 100%; color: #ffffff;background-color: #545b62; border-color:#545b62"
+                                data-toggle="collapse" data-target="#collapseSignout"
+                                aria-expanded="false" aria-controls="collapseSignout">
+                            ĐĂNG XUẤT
+                        </button>
+                        <div class="collapse" id="collapseSignout" style="width: 100%">
+                            <a class="dropdown-item" style="text-align: center" th:href="@{/sign-out}">ĐĂNG XUẤT</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <script type="text/javascript">
+        $(function () {
+            var curURL = window.location.href;
+            $(".nav-menu ul li").filter(function (index) {
+                var tag = $("a", this).attr("href");
+                return curURL.includes(tag) && tag != "/admin";
+            }).addClass("active");
+        });
+    </script>
+
+</div>

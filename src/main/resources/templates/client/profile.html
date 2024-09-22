@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TRANG CÁ NHÂN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/2.fd207d57.chunk.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.ffa69c8e.chunk.css}"/>
+    <link th:href="@{/css/movie-hover.css}" rel="stylesheet"/>
+
+</head>
+<body data-gr-ext-installed="" data-new-gr-c-s-check-loaded="14.1073.0">
+<div id="root">
+    <header lang="vi" th:include="fragments/header :: header"/>
+    <div class="profile container-fluid text-light">
+        <div class="row">
+            <div class="col-12 col-avt">
+                <div class="tableInfo">
+                    <div class="row">
+                        <!--START - SHOW PROFILE-->
+                        <div class="col-md-4 col-sm-12 col-left" style="color: #949494">
+                            <h2 class="info-title">Thông tin cá nhân</h2>
+                            <div class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+                                 th:object="${user}">
+                                <table aria-label="simple table" class="MuiTable-root">
+                                    <tbody class="MuiTableBody-root">
+                                        <th class="MuiTableRow-root" role="row" scope="row"></th>
+                                        <tr class="MuiTableRow-root">
+                                            <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row">
+                                                Họ và tên:
+                                            </th>
+                                            <th class="MuiTableCell-root MuiTableCell-body"
+                                                role="cell" scope="row" th:text="*{fullName}">
+                                            </th>
+                                        </tr>
+                                        <tr class="MuiTableRow-root">
+                                            <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row">
+                                                Email:
+                                            </th>
+                                            <th class="MuiTableCell-root MuiTableCell-body"
+                                                role="cell" scope="row" th:text="*{username}">
+                                            </th>
+                                        </tr>
+                                        <tr class="MuiTableRow-root">
+                                            <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row">
+                                                Số điện thoại:
+                                            </th>
+                                            <th class="MuiTableCell-root MuiTableCell-body"
+                                                role="cell" scope="row" th:text="*{phone}">
+                                            </th>
+                                        </tr>
+                                        <tr class="MuiTableRow-root">
+                                            <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row">
+                                                <i class="fa fa-user"></i>
+                                            </th>
+                                            <th class="MuiTableCell-root MuiTableCell-body" role="cell" scope="row"
+                                                th:each="role : *{roles}">
+                                                <span th:text="${role.name}"></span>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--END - SHOW PROFILE-->
+                        <div class="col-md-7 col-sm-12 col-right">
+                            <div id="accordion">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a aria-controls="pills-schedule" aria-selected="false" class="nav-link active"
+                                           data-toggle="pill" href="#pills-transaction" id="pills-home-tab" role="tab">
+                                            Lịch sử giao dịch
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a aria-controls="pills-info" aria-selected="false" class="nav-link"
+                                           data-toggle="pill" href="#pills-info" id="pills-profile-tab" role="tab">
+                                            Cập nhật Thông tin cá nhân
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a aria-controls="pills-map" aria-selected="true" class="nav-link"
+                                           data-toggle="pill" href="#pills-changepassword" id="pills-contact-tab" role="tab">
+                                            Thay đổi mật khẩu
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="movieTheater">
+                                    <!--START - TRANSACTION tab-->
+                                    <div aria-labelledby="pills-schedule-tab" class="tab-pane fade active show" id="pills-transaction" role="tabpanel">
+                                        <div class="movieTheater__row row">
+                                            <div class="tab-content col-md-8 col-sm-12" id="v-pills-tabContent"
+                                                 style="max-width: 100%;flex: 0 0 100%;">
+                                                <div class="tab-pane fade active show" id="BHDStar" role="tabpanel">
+                                                    <span style="color: #949494; text-align:center">Lưu ý: chỉ hiển thị 20 giao dịch gần nhất</span>
+                                                    <table class="table table-hover" style="color: #949494">
+                                                        <tbody>
+                                                            <tr th:each="ticket, tktIndex : ${tickets}" th:object="${ticket}" style="color: #949494" th:if="${tktIndex.index < 20}">
+                                                                <th scope="row" ><img style="max-width: 50px" th:src="*{schedule.movie.smallImageURL}"></th>
+                                                                <td>
+                                                                    <span style="display: block" th:text="*{schedule.movie.name}"></span>
+                                                                    <span style="display: block" th:text="*{schedule.movie.rated.name}"></span>
+                                                                </td>
+                                                                <td th:text="'Rạp: ' + *{schedule.branch.name + ' - Phòng: ' + schedule.room.name}"></td>
+                                                                <td th:text="*{schedule.startTime + ' - ' + schedule.startDate}"></td>
+                                                                <td>
+                                                                    <a th:href="@{/ticket(ticketId=*{id})}" id="btn-buy-ticket">
+                                                                        <button class="bookTicket-btn">Chi tiết</i></button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END - TRANSACTION tab-->
+                                    <!--START - UPDATE PROFILE tab-->
+                                    <div class="tab-pane fade" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
+                                        <!--START - Update profile form-->
+                                        <div class="card-body">
+                                            <form class="formRegister" th:object="${user}"
+                                                  th:action="@{/account/update-info}" method="post">
+                                                <div class="form-group">
+                                                    <input class="form-control " type="text" placeholder="Họ tên"
+                                                           th:field="*{fullName}" th:value="*{fullName}">
+                                                    <span class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="Email" type="hidden"
+                                                           th:field="*{username}" th:value="*{username}" readonly>
+                                                    <span class="text-danger"></span>
+                                                </div>
+                                                <div class="alert alert-warning"
+                                                     th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="Mật khẩu" type="hidden"
+                                                           th:field="*{password}" th:value="'******'" readonly="readonly">
+                                                    <span class="text-danger"></span></div>
+                                                <div class="alert alert-warning"
+                                                     th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Số điện thoại"
+                                                           th:field="*{phone}" th:value="*{phone}">
+                                                    <span class="text-danger"></span></div>
+                                                <div class="alert alert-warning" th:if="${#fields.hasErrors('phone')}"
+                                                     th:errors="*{phone}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btnChange btn-block btn btn-primary" type="submit" style="color: white; background-color: rgb(96, 197, 239); border-radius: 5px; padding: 15px;">
+                                                        Thay đổi thông tin
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--END - Update profile form-->
+                                    </div>
+                                    <!--END - UPDATE PROFILE tab-->
+                                    <!--START - CHANGE PASSWORD tab-->
+                                    <div class="tab-pane fade" id="pills-changepassword" role="tabpanel"
+                                         aria-labelledby="pills-map-tab">
+                                        <!--START - change password form-->
+                                        <div class="card-body">
+                                            <form class="formRegister"
+                                                  th:action="@{/account/change-password}" method="post">
+                                                <div class="form-group">
+                                                    <input class="form-control" name="newPassword"
+                                                           type="password" placeholder="Mật khẩu mới" >
+                                                    <span class="text-danger"></span></div>
+                                                <div class="form-group">
+                                                    <input class="form-control" name="validNewPassword"
+                                                           type="password" placeholder="Nhập lại mật khẩu">
+                                                    <span class="text-danger"></span></div>
+                                                <div class="form-group">
+                                                    <button class="btnChange btn-block btn btn-primary" type="submit" style="color: white; background-color: rgb(96, 197, 239); border-radius: 5px; padding: 15px;">
+                                                        Lưu
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!--END - change password form-->
+                                    </div>
+                                    <!--END - CHANGE PASSWORD tab-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container" lang="vi" th:include="fragments/footer :: footer"/>
+</div>
+
+<div class="swal-overlay swal-overlay--show-modal notify" tabindex="-1" th:if="${statusChangedPassword} == false">
+    <div aria-modal="true" class="swal-modal" role="dialog">
+        <div class="swal-icon swal-icon--error">
+            <div class="swal-icon--error__x-mark">
+                <span class="swal-icon--error__line swal-icon--error__line--left"></span>
+                <span class="swal-icon--error__line swal-icon--error__line--right"></span>
+            </div>
+        </div>
+        <div class="swal-title" th:text="${messageStatus}"></div>
+        <div class="swal-footer">
+            <div class="swal-button-container">
+                <button class="swal-button swal-button--confirm">OK</button>
+                <div class="swal-button__loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="swal-overlay swal-overlay--show-modal notify" tabindex="-1" th:if="${statusChangedPassword} == true">
+    <div aria-modal="true" class="swal-modal" role="dialog">
+        <div class="swal-icon swal-icon--success">
+            <span class="swal-icon--success__line swal-icon--success__line--long"></span>
+            <span class="swal-icon--success__line swal-icon--success__line--tip"></span>
+            <div class="swal-icon--success__ring"></div>
+            <div class="swal-icon--success__hide-corners"></div>
+        </div>
+        <div class="swal-title" th:text="${messageStatus}"></div>
+        <div class="swal-text" style=""></div>
+        <div class="swal-footer">
+            <div class="swal-button-container">
+                <button class="swal-button swal-button--confirm">OK</button>
+                <div class="swal-button__loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script crossorigin="anonymous"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<script>!function (e) {
+    function r(r) {
+        for (var n, a, p = r[0], i = r[1], l = r[2], c = 0, s = []; c < p.length; c++) a = p[c], Object.prototype.hasOwnProperty.call(o, a) && o[a] && s.push(o[a][0]), o[a] = 0;
+        for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]);
+        for (f && f(r); s.length;) s.shift()();
+        return u.push.apply(u, l || []), t()
+    }
+
+    function t() {
+        for (var e, r = 0; r < u.length; r++) {
+            for (var t = u[r], n = !0, p = 1; p < t.length; p++) {
+                var i = t[p];
+                0 !== o[i] && (n = !1)
+            }
+            n && (u.splice(r--, 1), e = a(a.s = t[0]))
+        }
+        return e
+    }
+
+    var n = {}, o = {1: 0}, u = [];
+
+    function a(r) {
+        if (n[r]) return n[r].exports;
+        var t = n[r] = {i: r, l: !1, exports: {}};
+        return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports
+    }
+
+    a.m = e, a.c = n, a.d = function (e, r, t) {
+        a.o(e, r) || Object.defineProperty(e, r, {enumerable: !0, get: t})
+    }, a.r = function (e) {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {value: "Module"}), Object.defineProperty(e, "__esModule", {value: !0})
+    }, a.t = function (e, r) {
+        if (1 & r && (e = a(e)), 8 & r) return e;
+        if (4 & r && "object" == typeof e && e && e.__esModule) return e;
+        var t = Object.create(null);
+        if (a.r(t), Object.defineProperty(t, "default", {
+            enumerable: !0,
+            value: e
+        }), 2 & r && "string" != typeof e) for (var n in e) a.d(t, n, function (r) {
+            return e[r]
+        }.bind(null, n));
+        return t
+    }, a.n = function (e) {
+        var r = e && e.__esModule ? function () {
+            return e.default
+        } : function () {
+            return e
+        };
+        return a.d(r, "a", r), r
+    }, a.o = function (e, r) {
+        return Object.prototype.hasOwnProperty.call(e, r)
+    }, a.p = "/";
+    var p = this.webpackJsonpmoviereactapp = this.webpackJsonpmoviereactapp || [], i = p.push.bind(p);
+    p.push = r, p = p.slice();
+    for (var l = 0; l < p.length; l++) r(p[l]);
+    var f = i;
+    t()
+}([])</script>
+<script>
+    $(document).ready(function () {
+        $('#v-pills-tabContent .nav-link').first().trigger('click');
+        $(".notify").click(function (e) {
+            $(this).removeClass("swal-overlay--show-modal");
+        });
+
+    });
+</script>
+</html>

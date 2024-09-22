@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ADMIN | SOÁT VÉ</title>
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/form-style.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css">
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <!---->
+    <script src="https://cdn.tiny.cloud/1/7dza6b4k84mruc8aqfxwcn6fb4jdkknqdhba08g53bydxkka/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <!---->
+</head>
+<style>
+    .badge-success {
+        font-size: 20px;
+    }
+</style>
+<body>
+<th:block lang="vi" th:include="fragments/admin/navigation :: navigation"></th:block>
+<main>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center" style="margin: 40px;">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">SOÁT VÉ</h2>
+                </div>
+            </div>
+            <div class="main">
+            <!-- Another variation with a button -->
+            <form >
+                <div class="input-group">
+                    <input type="text" class="form-control" name="code" placeholder="Nhập Mã vé">
+                    <!--<div class="input-group-append">
+                        <button class="btn btn-secondary" type="button">
+                            KIỂM TRA VÉ
+                        </button>
+                    </div>-->
+                </div>
+            </form>
+            <div class="card mt-4" th:if="${ticket != null}">
+                <div class="row__above row">
+                    <div class="col-md-5 col-sm-12">
+                        <img th:src="${ticket.schedule.movie.smallImageURL}" class="card-img-top img-thumbnail" alt="...">
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-1 col-sm-12">
+                                    </div>
+                                    <div class="col-md-11 col-sm-12" >
+                                        <h1 th:text="${ticket.schedule.movie.name}"></h1>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Rạp:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12" >
+                                        <h5 style="color: blue" th:text="${ticket.schedule.branch.name}"></h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Phòng:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <h5 style="color: blue" th:text="${ticket.schedule.room.name}"></h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Ghế:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <h5 style="color: blue" th:text="${ticket.seat.name}"></h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Ngày chiếu:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <h5 style="color: blue" th:text="${ticket.schedule.startTime}"></h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Suất chiếu:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <h5 style="color: blue" th:text="${ticket.schedule.startDate}"></h5>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Thời gian mua:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <p th:text="${ticket.bill.createdTime}"></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Mã vé:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <p th:text="${ticket.qrCode}"></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row__above row">
+                                    <div class="col-md-3 col-sm-12">
+                                        <p>Người mua:</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-12">
+                                        <p th:text="${ticket.bill.user.fullName}"></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="row__above row">
+                                <div class="col-md-3 col-sm-12">
+                                </div>
+                                <div class="col-md-9 col-sm-12">
+                                    <button th:if="${!ticket.isCheck()}" type="button" class="btn btn-primary"
+                                            id="checking-btn" th:data-id="${ticket.qrCode}">Soát vé</button>
+                                    <span th:if="${ticket.isCheck()}" class="badge badge-success" >Đã soát vé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+</main>
+<div id="error--login" class="swal-overlay swal-overlay--show-modal notify" tabindex="-1" th:if="${status} == true">
+    <div aria-modal="true" class="swal-modal" role="dialog">
+        <div class="swal-icon swal-icon--success">
+            <span class="swal-icon--success__line swal-icon--success__line--long"></span>
+            <span class="swal-icon--success__line swal-icon--success__line--tip"></span>
+            <div class="swal-icon--success__ring"></div>
+            <div class="swal-icon--success__hide-corners"></div>
+        </div>
+        <div class="swal-title" th:text="${messageStatus}"></div>
+        <div class="swal-text" style=""></div>
+        <div class="swal-footer">
+            <div class="swal-button-container">
+                <button class="swal-button swal-button--confirm">ĐỒNG Ý</button>
+                <div class="swal-button__loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="error--login" class="swal-overlay swal-overlay--show-modal notify" tabindex="-1" th:if="${status} == false">
+    <div aria-modal="true" class="swal-modal" role="dialog">
+        <div class="swal-icon swal-icon--error">
+            <div class="swal-icon--error__x-mark">
+                <span class="swal-icon--error__line swal-icon--error__line--left"></span>
+                <span class="swal-icon--error__line swal-icon--error__line--right"></span>
+            </div>
+        </div>
+        <div class="swal-title" th:text="${messageStatus}"></div>
+        <div class="swal-footer">
+            <div class="swal-button-container">
+                <button class="swal-button swal-button--confirm">ĐỒNG Ý</button>
+                <div class="swal-button__loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('#v-pills-tabContent .nav-link').first().trigger('click');
+        $(".notify").click(function (e) {
+            $(this).removeClass("swal-overlay--show-modal");
+        });
+
+    });
+</script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        // Bind click event to the checking button
+        $('#checking-btn').on('click', function(event) {
+            event.preventDefault(); // Prevent default behavior if necessary (for forms)
+
+            var qrCode = $(this).data('id'); // Get the ticket qrcode from the data-id attribute
+
+            // Make AJAX request to the backend
+            $.ajax({
+                url: 'http://localhost:8080/api/admin/tickets/' + qrCode + '/checkin', // URL with ticket ID
+                headers: {"Authorization": "Bearer "+[[${session.jwtResponse.accessToken}]]},
+
+                type: 'GET',
+                success: function(response) {
+                    // Handle success response
+                    $("#checking-btn").replaceWith(`<span class="badge badge-success">Đã soát vé</span>`)
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    alert("Error: " + error); // Shows error message in case of failure
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#btn-post").click(function (event) {
+            event.preventDefault();
+            var emty = false
+            $(".form-control").each(function () {
+                if ($(this).val() == '0' || $(this).val() == '' || $(this).val() == null) {
+                    emty = true
+                }
+                console.log($(this).val())
+            })
+            if (emty) {
+                $("#error--login").addClass("swal-overlay--show-modal")
+            } else {
+                $("#contactForm").submit();
+            }
+        })
+        $(document).ready(function () {
+            $("#error--login").click(function (e) {
+                $(this).removeClass("swal-overlay--show-modal");
+            });
+
+        });
+    });
+</script>
+
+</body>
+</html>

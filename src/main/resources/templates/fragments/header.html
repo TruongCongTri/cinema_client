@@ -1,0 +1,118 @@
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="navbar-brand">
+            <a aria-current="page" class="active" href="/" style="text-decoration: none;">
+                <span class="text-logo">CINEPLEX</span>
+            </a>
+        </div>
+        <div class="header__mobile">
+            <div class="header__login" style="display: flex;" th:if="${session.jwtResponse != null}">
+                <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/account/profile}">
+                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
+                    <span class="login__text" th:text="${session.jwtResponse.name}"></span>
+                </a>
+                <a style="background: #ffc107;" class="btn"  th:href="@{/sign-out}">ĐĂNG XUẤT</a>
+            </div>
+            <div class="header__login" style="display: flex;" th:if="${session.jwtResponse == null}">
+                <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/login}">
+                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
+                    <span class="login__text">ĐĂNG NHẬP</span>
+                </a>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                      aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a aria-current="page" class="nav-link active" th:href="@{/quick-booking}">
+                        <div class="d-flex flex-column">
+                            <span>ĐẶT VÉ</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color: #949494 !important; background-color: #fff3cd !important; border-color: #fff3cd !important">
+                            PHIM
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="color: #949494 !important; background-color: #fff3cd !important">
+                            <a class="dropdown-item" th:href="@{/movies/showing}">ĐANG CHIẾU</a>
+                            <a class="dropdown-item" th:href="@{/movies/coming}">SẮP CHIẾU</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color: #949494 !important; background-color: #fff3cd !important; border-color: #fff3cd !important">
+                            RẠP
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="color: #949494 !important; background-color: #fff3cd !important">
+                            <a class="dropdown-item" th:href="@{/branches/detail(cityId=5,branchId=1)}">RẠP</a>
+                        </div>
+                    </div>
+                </a></li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color: #949494 !important; background-color: #fff3cd !important; border-color: #fff3cd !important">
+                            SỰ KIỆN
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="color: #949494 !important; background-color: #fff3cd !important">
+                            <a class="dropdown-item" th:href="@{/promotions}">ƯU ĐÃI</a>
+                        </div>
+                    </div>
+                    </a></li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color: #949494 !important; background-color: #fff3cd !important; border-color: #fff3cd !important">
+                            GÓC ĐIỆN ẢNH
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="color: #949494 !important; background-color: #fff3cd !important">
+                            <a class="dropdown-item" th:href="@{/posts/news}">TIN TỨC</a>
+                            <a class="dropdown-item" th:href="@{/posts/reviews}">ĐÁNH GIÁ PHIM</a>
+                        </div>
+                    </div>
+                    </a></li>
+                <li class="nav-item" th:if="${session.admin}">
+                    <a aria-current="page" class="nav-link active" th:href="@{/admin}">
+                        <div class="d-flex flex-column">
+                            <span>QUẢN LÝ</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="header__login" th:if="${session.jwtResponse != null}">
+                <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/account/profile}">
+                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
+                    <span class="login__text" th:text="${session.jwtResponse.name}"></span>
+                </a>
+                <a style="background: #ffc107;" class="btn" th:href="@{/sign-out}">ĐĂNG XUẤT</a>
+            </div>
+            <div class="header__login"  th:if="${session.jwtResponse == null}">
+                <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/login}">
+                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
+                    <span class="login__text">ĐĂNG NHẬP</span></a>
+            </div>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,50 @@
+<div th:fragment="booking">
+    <div class="col-md-3">
+        <div class="animated fadeIn" style="animation-duration: 1s; opacity: 1;">
+            <section class="schedule container mx-auto" id="schedule">
+                <div id="bookingTab">
+                    <div class="schedule__content">
+                        <div class="row">
+                            <!--form-->
+                            <div class="input-group">
+                                <select class="custom-select" style="width: 100%; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectMovie" name="select-movie">
+                                    <option selected disabled hidden value="0">Chọn Phim</option>
+                                    <option th:each="movie: ${selectMovies}" th:value="${movie.id}"
+                                            th:text="${movie.name}" ></option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" style="width: 100%; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectBranch" name="select-branch" disabled>
+                                    <option selected disabled hidden value="0">Chọn Chi Nhánh</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" style="width: 100%; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectDate" name="select-date" disabled>
+                                    <option selected disabled hidden value="0">Chọn Ngày</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" style="width: 100%; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectTime" name="select-time" disabled>
+                                    <option selected disabled hidden value="0">Chọn Suất</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <a class="quick_booking" href="/booking/" style="width: 100%">
+                                    <button class="bookTicket-btn quick_booking" style="min-width: 100%" disabled>ĐẶT VÉ NHANH</button>
+                                </a>
+                            </div>
+                            <!--form-->
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ADMIN | THÊM TÀI KHOẢN MỚI</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/form-style.css}">
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+
+    <!---->
+    <script src="https://cdn.tiny.cloud/1/7dza6b4k84mruc8aqfxwcn6fb4jdkknqdhba08g53bydxkka/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <!---->
+</head>
+<body>
+<th:block lang="vi" th:include="fragments/admin/navigation :: navigation"></th:block>
+<main>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center" style="margin: 40px;">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">THÊM MỚI TÀI KHOẢN</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="wrapper img">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="contact-wrap w-100 p-md-5 p-4">
+                                    <!--START - Add Account Form-->
+                                    <form method="POST" id="contactForm" name="contactForm" class="contactForm"
+                                          th:action="@{/admin/accounts/add}" th:object="${user}">
+                                        <!--INPUT - id - cannot add-->
+                                        <input th:field="*{id}" type="hidden"/>
+                                        <!--INPUT - full name-->
+                                        <div class="form-select fullName" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Họ và tên:</span>
+                                            <input type="text" th:field="*{fullName}"
+                                                   class="form-control" placeholder="Nhập Họ và tên"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <!--INPUT - email-->
+                                        <div class="form-select email" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Email:</span>
+                                            <input type="text" th:field="*{username}"
+                                                   class="form-control" placeholder="Nhập Email"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <!--INPUT - password-->
+                                        <div class="form-select password" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Mật khẩu:</span>
+                                            <input type="password" th:field="*{password}"
+                                                   class="form-control" placeholder="Nhập mật khẩu"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <!--INPUT - Phone number-->
+                                        <div class="form-select phone" style="margin:10px 20px 10px 0 ;">
+                                            <span class="film__age--C" style="font-size: large;">Số điện thoại:</span>
+                                            <input type="tel" minlength="8" maxlength="10" th:field="*{phone}"
+                                                   class="form-control" placeholder="Nhập Số điện thoại"
+                                                   aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        </div>
+                                        <!--CHECKBOX - role-->
+                                        <div class="form-select roles" style="margin: 10px 20px 10px 0">
+                                            <span class="film__age--C" style="font-size: large">Phân loại Vai trò người dùng:</span>
+                                            <div class="form-check" th:each="role: ${roles}" th:classappend="${role.name}">
+                                            <input class="form-check-input" type="checkbox" name="role" th:value="${role.name}" >
+                                            <label class="form-check-label" for="flexCheckDefault" th:text="${role.name}">
+                                            </label>
+                                        </div>
+                                        </div>
+                                        <!--BTN - save data-->
+                                        <div class="form-group">
+                                            <input id="btn-post" type="submit" value="Save" class="btn btn-primary">
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </form>
+                                    <!--END - Add Account Form-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="error--login" class="swal-overlay" tabindex="-1"
+         th:classappend="${error} != null ? swal-overlay--show-modal: ''">
+        <div class="swal-modal" role="dialog" aria-modal="true">
+            <div class="swal-icon swal-icon--error">
+                <div class="swal-icon--error__x-mark">
+                    <span class="swal-icon--error__line swal-icon--error__line--left"></span>
+                    <span class="swal-icon--error__line swal-icon--error__line--right"></span>
+                </div>
+            </div>
+            <div class="swal-title" th:text="${error} != null ? ${error}:'Đầu vào không được để trống!'"></div>
+            <div class="swal-footer">
+                <div class="swal-button-container">
+                    <button class="swal-button swal-button--confirm">ĐỒNG Ý</button>
+                    <div class="swal-button__loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $("#btn-post").click(function (event) {
+            event.preventDefault();
+            var emty = false
+            $(".form-control").each(function () {
+                if ($(this).val() == '0' || $(this).val() == '' || $(this).val() == null) {
+                    emty = true
+                }
+                console.log($(this).val())
+            })
+            if (emty) {
+                $("#error--login").addClass("swal-overlay--show-modal")
+            } else {
+                $("#contactForm").submit();
+            }
+        })
+
+        $(document).ready(function () {
+            $("#error--login").click(function (e) {
+                $(this).removeClass("swal-overlay--show-modal");
+            });
+
+        });
+    });
+</script>
+<script>
+    /*tinymce.init({
+        selector: 'textarea#short-desc'
+    });*/
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
+

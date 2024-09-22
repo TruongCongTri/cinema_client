@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text = "${preSelectBranch.name}">Branch Name</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/2.fd207d57.chunk.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.ffa69c8e.chunk.css}" rel="stylesheet"/>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1073.0" data-gr-ext-installed="" style="">
+    <div id="root" >
+    	<header lang="vi" th:include="fragments/header :: header"/>
+        <section class="movieInfo">
+            <div class="full__background">
+                <img src="https://i.ibb.co/b6pKC8Z/branch-background.jpg" alt="branch-background" style="height: 450px;">
+                <div class="overlay__gradient"></div>
+            </div>
+            <div class="form__info container">
+                <div class="row">
+                    <!--<form>-->
+                    <div class="movie__info col-6">
+                        <div>
+                            <div class="mb-3 d-flex justify-content-start align-items-center">
+                                <span class="name" th:text="${preSelectBranch.name}"></span>
+                            </div>
+                            <a href="#movieTheater" id="btn-buy-ticket">
+                                <button class="bookTicket-btn">MUA VÉ <i class='fas fa-ticket-alt'></i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="movie__poster text-left col-2">
+                        <div style="display:flex;
+            							justify-content: space-between;
+            							flex-wrap: wrap;">
+                            <select id="cities" class="form-control" style="width:240px;font-size: 18px;color: #949494; background-color: #fff3cd">
+                                <option th:each="city : ${cities}"  th:value="${city.id}"
+                                        th:text="${city.province}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="movie__poster text-left col-3">
+                        <div style="display:flex;
+            							justify-content: space-between;
+            							flex-wrap: wrap;">
+                            <select id="branches" class="form-control" style="width:240px;font-size: 18px;color: #949494; background-color: #fff3cd">
+                                <option th:each="branch : ${branches}" th:object="${branch}" th:value="${branch.id}"
+                                        th:text="${branch.name}"
+                                        th:class="'sub-'+ ${branch.city.id}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <span id="optionStore" style="display:none;"></span>
+                    <!--<div class="movie__rating d-flex justify-content-end col-3">
+                        <div>
+                            <div class="rating__point">10<div class="vongtronxanh"></div>
+                            </div>
+                            <div class="rating__stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                    class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                            <div class="rating__text">10 người đánh giá</div>
+                        </div>
+                    </div>-->
+                    <!--</form>-->
+                </div>
+            </div>
+        </section>
+        <section class="tabBookMovie">
+            <div class="container">
+                <ul class="nav nav-pills row" id="pills-tab" role="tablist">
+                    <li class="nav-item col-sm-2">
+                        <a class="nav-link" id="pills-home-tab" data-toggle="pill"
+                            href="#pills-schedule" role="tab" aria-controls="pills-schedule" aria-selected="false">
+                            LỊCH CHIẾU
+                        </a>
+                    </li>
+                    <li class="nav-item col-sm-2">
+                        <a class="nav-link active" id="pills-profile-tab" data-toggle="pill"
+                            href="#pills-info" role="tab" aria-controls="pills-info" aria-selected="false">
+                            THÔNG TIN
+                        </a>
+                    </li>
+                    <li class="nav-item col-sm-2">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill"
+                            href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="true">
+                            BẢN ĐỒ
+                        </a>
+                    </li>
+                </ul>
+                <div id="movieTheater" class="tab-content">
+                    <div class="tab-pane fade" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+                        <div class="movieTheater__row row">
+                            <div class="tab-content col-md-8 col-sm-12" id="v-pills-tabContent" style="max-width: 100%;flex: 0 0 100%;">
+                                <div class="tab-pane fade active show" id="BHDStar" role="tabpanel">
+                                    <h1 class="schedule__title text-center mb-4">
+                                        <span class="schedule__title text-center mb-4">
+                                            <select name="select-date" id="select-date" style="color: #949494; background-color: #fff3cd">
+                                                <option th:each="startDate : ${allStartDate}"
+                                                        th:value="${startDate}"
+                                                        th:text="${startDate}">
+                                                </option>
+                                            </select>
+                                        </span>
+                                    </h1>
+                                    <div class="theater__content">
+                                        <ul class="list__theater">
+                                            <li class="list__item" th:each="movie: ${movies}" >
+                                                <a class="theater__link collapsed"
+                                                   data-toggle="collapse" th:href="'#movie'+${movie.id}" role="button"
+                                                   aria-expanded="false">
+                                                    <div class="row">
+                                                        <div class="theater__img col-2">
+                                                            <img th:src="${movie.smallImageURL}" alt="branchimg">
+                                                        </div>
+                                                        <div class="theater__title col-10">
+                                                        	<span class="theater__name cgv-color">
+                                                                <span class="theater__subname" th:text="${movie.name}"></span>
+                                                                <span th:text="${movie.rated.name}" style="color: #fff;padding: 4px 7px;margin-right: 6px;margin-top: 6px;background-color: #fb4226; border-radius: 4px;font-size: 15px; font-weight: 300"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <div class="collapse" th:id="'movie'+${movie.id}" style="">
+                                                    <div class="collapse__content">
+                                                        <div class="film__timeshow">
+                                                            <div>
+                                                                <div class="film__version my-4">2D - Phụ đề</div>
+                                                                <ul class="d-flex flex-wrap">
+                                                                    <th:block class="film__item" th:each = "schedule: ${movie.schedules}">
+                                                                        <div class="timeshow__item" th:if="${schedule.branch.id == preSelectBranch.id}">
+                                                                            <a class="timeshow__link" th:href="@{'/booking/' + ${schedule.id}}">
+                                                                                <span class="time__begin"
+                                                                                      th:data-date="${#temporals.format(schedule.startDate, 'dd/MM/yyyy')}"
+                                                                                      th:text="${#temporals.format(schedule.startTime, 'HH:mm')}"></span>
+                                                                            </a>
+                                                                        </div>
+                                                                    </th:block>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade active show" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
+                        <div class="row__above row">
+                            <div class="info__category col-md-6 col-sm-12">
+                                <div class="category__item">
+                                    <p class="category__name">ĐIA CHỈ: </p>
+                                    <p class="category__content" th:text="${preSelectBranch.address}"></p>
+                                </div>
+                                <div class="category__item">
+                                    <p class="category__name">THÀNH PHÓ: </p>
+                                    <p class="category__content" th:text="${preSelectBranch.city.province}"></p>
+                                </div>
+                                <div class="category__item">
+                                    <p class="category__name">HOTLINE</p>
+                                    <p class="category__content" th:text="${preSelectBranch.hotline}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-map" role="tabpanel"
+                         aria-labelledby="pills-map-tab">
+                        <iframe th:src="${preSelectBranch.mapURL}" style="min-height: 500px; width: 100%;"
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    	<footer lang="vi" class="container" th:include="fragments/footer :: footer"/>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <script>!function (e) { function r(r) { for (var n, a, p = r[0], i = r[1], l = r[2], c = 0, s = []; c < p.length; c++)a = p[c], Object.prototype.hasOwnProperty.call(o, a) && o[a] && s.push(o[a][0]), o[a] = 0; for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]); for (f && f(r); s.length;)s.shift()(); return u.push.apply(u, l || []), t() } function t() { for (var e, r = 0; r < u.length; r++) { for (var t = u[r], n = !0, p = 1; p < t.length; p++) { var i = t[p]; 0 !== o[i] && (n = !1) } n && (u.splice(r--, 1), e = a(a.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function a(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports } a.m = e, a.c = n, a.d = function (e, r, t) { a.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, a.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, a.t = function (e, r) { if (1 & r && (e = a(e)), 8 & r) return e; if (4 & r && "object" == typeof e && e && e.__esModule) return e; var t = Object.create(null); if (a.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: e }), 2 & r && "string" != typeof e) for (var n in e) a.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, a.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return a.d(r, "a", r), r }, a.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, a.p = "/"; var p = this.webpackJsonpmoviereactapp = this.webpackJsonpmoviereactapp || [], i = p.push.bind(p); p.push = r, p = p.slice(); for (var l = 0; l < p.length; l++)r(p[l]); var f = i; t() }([])</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /*$(".nav-item").click(function(){
+                $("#video").attr('src',"");
+            });
+              $('.nav-video').click(function() {
+                  var videoSrc = $(this).data( "src" );
+                  $("#video").attr('src',videoSrc);
+              });*/
+            $("#btn-buy-ticket").click(function(){
+                $("#pills-home-tab").trigger('click');
+            })
+
+            $('#v-pills-tabContent .nav-link').first().trigger('click');
+            /*START - filter schedule*/
+            function filterSchedule(){
+                selectDate=$("#select-date").val()
+                $(".time__begin").each(function(){
+                    if($(this).data("date")!=selectDate){
+                        $(this).css("display","none");
+                    }
+                    else{
+                        $(this).css("display","");
+                        $(this).closest('.film__item').data('length',Number($(this).closest('.film__item').data('length'))+1)
+                    }
+                })
+                $('.film__item').each(function(){
+                    console.log($(this).data("length"))
+                    if($(this).data("length")=='0') $(this).css("display","none");
+                    else $(this).css("display","");
+                })
+            }
+            filterSchedule();
+            $("#select-date").on("change",function(){
+                $('.film__item').each(function(){
+                    $(this).data("length",0)
+                })
+                filterSchedule();
+            })
+            /*END - filter schedule*/
+
+            //get parameters from url
+            //then pass to matched ids
+            var selectedBranch = GetURLParameter("branchId");
+            var selectedCity = GetURLParameter("cityId");
+            if (selectedBranch && selectedCity) {
+                optionSwitch(selectedCity);
+                $("#cities").val(selectedCity);
+                $("#branches").val(selectedBranch);
+            }
+
+            //when select tag with ID cities changes its value
+            $('#cities').on("change", function() {
+                //load branches based on selected city id
+                var city = $(this).val();
+                optionSwitch(city);
+
+                //when click on any city option
+                //then open url page of the first branch of that city
+                var cityId = this.value;
+                var branchId = document.getElementById("branches").value;
+                var url = "/branches/detail?cityId="+ cityId +"&branchId=" + branchId;
+                window.open(url,"_self");
+            });
+
+            //when select tag with ID branches changes its value
+            $('#branches').on("change", function() {
+                //open detail branch page
+                var cityId = document.getElementById("cities").value;
+                var branchId = this.value;
+                var url = "/branches/detail?cityId="+ cityId +"&branchId=" + branchId;
+                /*window.open(url,"_self");*/
+                window.location.href = url;
+            });
+        });
+        //filter options of branches based on the selected city ID
+        function optionSwitch(myfilter) {
+            //Populate the optionstore if the first time through
+            if ($('#optionStore').text() == "") {
+                $('option[class^="sub-"]').each(function() {
+                    var optvalue = $(this).val();
+                    var optclass = $(this).prop('class');
+                    var opttext = $(this).text();
+                    optionlist = $('#optionStore').text() + "@%" + optvalue + "@%" + optclass + "@%" + opttext;
+                    $('#optionStore').text(optionlist);
+                });
+            }
+
+            //Delete everything
+            $('option[class^="sub-"]').remove();
+
+            // Put the filtered stuff back
+            populateoption = rewriteoption(myfilter);
+            $('#branches').html(populateoption);
+        }
+
+        function rewriteoption(myfilter) {
+            //Rewrite only the filtered stuff back into the option
+            var options = $('#optionStore').text().split('@%');
+            var resultgood = false;
+            var myfilterclass = "sub-" + myfilter;
+            var optionlisting = "";
+
+            myfilterclass = (myfilter != "") ? myfilterclass : "all";
+
+            //First variable is always the value, second is always the class, third is always the text
+            for (var i = 3; i < options.length; i = i + 3) {
+                if (options[i - 1] == myfilterclass || myfilterclass == "all") {
+                    optionlisting = optionlisting + '<option value="' + options[i - 2] + '" class="' + options[i - 1] + '">' + options[i] + '</option>';
+                    resultgood = true;
+                }
+            }
+            if (resultgood) {
+                return optionlisting;
+            }
+        }
+
+        //load page
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

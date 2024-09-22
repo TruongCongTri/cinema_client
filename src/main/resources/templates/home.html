@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cineplex</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/2.fd207d57.chunk.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.ffa69c8e.chunk.css}"/>
+    <link rel="stylesheet" th:href="@{/css/movie-hover.css}"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css"
+          rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="magnific-popup/magnific-popup.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="magnific-popup/jquery.magnific-popup.js"></script>
+
+    <style>
+        .quick_booking .bookTicket-btn :disabled {
+            opacity: 0.3
+        }
+        .quick_booking .bookTicket-btn :active {
+            background-color: #bdb499;
+            color: #ffffff
+        }
+        .select-selected {
+            color: #ffffff;
+            background-color: #bdb499;
+        }
+    </style>
+<body data-gr-ext-installed="" data-new-gr-c-s-check-loaded="14.1073.0">
+<div id="root">
+    <header lang="vi" th:include="fragments/header :: header"/>
+    <!--START - promotion slide show-->
+    <div class="hotMovie">
+        <div class="hotMovie__content">
+            <div class="owl-carousel myHotMovieCarousel owl-carousel owl-theme owl-loaded owl-drag">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage" style="transform: translate3d(-5076px, 0px, 0px); transition: all 0.25s ease 0s; width: 11844px;">
+                        <div class="owl-item" style="width: 1692px;" th:each="promo : ${activePromos}">
+                            <div class="item">
+                                <div class="item__img" href="#">
+                                    <a th:href="@{/promotions/detail(promoId=${promo.id})}">
+                                        <img class="img-fluid" style="height: 560px"
+                                             th:alt="${promo.title}" th:src="${promo.horizontalImgUrl}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END - promotion slide show-->
+    <div class="animated fadeIn" style="animation-duration: 1s; opacity: 1;">
+        <section class="schedule container mx-auto" id="schedule">
+            <div id="bookingTab">
+                <div class="schedule__content">
+                    <div class="row" >
+                        <!--form-->
+                            <div class="input-group col-sm">
+                                <select class="custom-select" style="min-width: 250px; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectMovie" name="select-movie">
+                                    <option selected disabled hidden value="0">Chọn Phim</option>
+                                    <option th:each="movie: ${selectMovies}" th:value="${movie.id}"
+                                            th:text="${movie.name}" ></option>
+                                </select>
+                            </div>
+                            <div class="input-group col-sm">
+                                <select class="custom-select" style="min-width: 200px; font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectBranch" name="select-branch" disabled>
+                                    <option selected disabled hidden value="0">Chọn Chi Nhánh</option>
+                                </select>
+                            </div>
+                            <div class="input-group col-sm">
+                                <select class="custom-select" style="font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectDate" name="select-date" disabled>
+                                    <option selected disabled hidden value="0">Chọn Ngày</option>
+                                </select>
+                            </div>
+                            <div class="input-group col-sm">
+                                <select class="custom-select" style="font-size: 18px;color: #949494; background-color: #fff3cd"
+                                        id="selectTime" name="select-time" disabled>
+                                    <option selected disabled hidden value="0">Chọn Suất</option>
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <a class="quick_booking" href="/booking/" >
+                                <button class="bookTicket-btn quick_booking" style="padding: .6rem 1rem; margin-top: 0px" disabled>ĐẶT VÉ NHANH</button>
+                                </a>
+                            </div>
+                        <!--form-->
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="listMovie" id="listMovie">
+        <div class="container">
+            <div id="listMovieTab">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a aria-controls="pills-home" aria-selected="true" class="nav-link active"
+                           data-toggle="pill" href="#pills-nowshowing" id="pills-home-tab" role="tab">
+                            ĐANG CHIẾU
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-controls="pills-profile" aria-selected="false" class="nav-link"
+                           data-toggle="pill" href="#pills-comingsoon" id="pills-profile-tab" role="tab">
+                            SẮP CHIẾU
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div aria-labelledby="pills-home-tab" class="tab-pane fade show active" id="pills-nowshowing"
+                         role="tabpanel">
+                        <div class="row movielist-content">
+                            <!--START - detailed movie card-->
+                            <div class="movie-card col-md-3 col-sm-12" th:each="movie: ${showingMovies}"
+                                 th:object="${movie}">
+                                <a class="card-link" th:href="@{/movies/detail(movieId=*{id})}">
+                                    <div class="hover">
+                                        <div class="image">
+                                            <img alt="Avatar" class="image" style="width:100%"
+                                                 th:src="*{smallImageURL}">
+                                            <div class="content">
+                                                <p th:text="*{name}"></p>
+                                                <a id="btn-buy-ticket" th:href="@{/movies/detail(movieId=*{id})}">
+                                                    <button class="bookTicket-btn">Mua vé <i
+                                                            class='fas fa-ticket-alt'></i></button>
+                                                </a>
+                                                <a class="button " href="#trailer" id="play-trailer">
+                                                    <button class="playTrailer-btn">Trailer <i
+                                                            class="fa fa-play-circle"></i></button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--END - detailed movie card-->
+
+                        </div>
+                    </div>
+                    <div aria-labelledby="pills-profile-tab" class="tab-pane fade" id="pills-comingsoon"
+                         role="tabpanel">
+                        <div class="row movielist-content">
+                            <!--START - detailed movie card-->
+                            <div class="movie-card col-md-3 col-sm-12" th:each="movie: ${comingMovies}"
+                                 th:object="${movie}">
+                                <a class="card-link" th:href="@{/movies/detail(movieId=*{id})}">
+                                    <div class="hover">
+                                        <div class="image">
+                                            <img alt="Avatar" class="image" style="width:100%"
+                                                 th:src="*{smallImageURL}">
+                                            <div class="content">
+                                                <p th:text="*{name}"></p>
+                                                <a id="btn-buy-ticket" th:href="@{/movies/detail(movieId=*{id})}">
+                                                    <button class="bookTicket-btn">Mua vé <i
+                                                            class='fas fa-ticket-alt'></i></button>
+                                                </a>
+                                                <a class="button " href="#trailer" id="play-trailer">
+                                                    <button class="playTrailer-btn">Trailer <i
+                                                            class="fa fa-play-circle"></i></button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--END - detailed movie card-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="animated zoomIn" style="animation-duration: 1s; opacity: 1;">
+        <section class="news" id="news">
+            <div class="container">
+                <div id="newsTab">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a aria-controls="pills-news" aria-selected="true" class="nav-link active"
+                               data-toggle="pill" href="#pills-news" id="pills-news-tab" role="tab">
+                                TIN TỨC
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a aria-controls="pills-review" aria-selected="false" class="nav-link"
+                               data-toggle="pill" href="#pills-review" id="pills-review-tab" role="tab">
+                                ĐÁNH GIÁ PHIM
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a aria-controls="pills-promotion" aria-selected="false" class="nav-link"
+                               data-toggle="pill" href="#pills-promotion" id="pills-promotion-tab" role="tab">
+                                ƯU ĐÃI
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div aria-labelledby="pills-home-tab" class="tab-pane fade show active" id="pills-news"
+                             role="tabpanel">
+                            <div class="tab__content">
+                                <div class="card-content row">
+                                    <div class="example-2 card" th:each="news, iterStat : ${activeNews}"
+                                         th:if="${iterStat.index <2}">
+                                        <div class="wrapper">
+                                            <img alt="" style="width:575px; " th:src="${news.verticalImgUrl}">
+                                            <div class="header-post">
+                                                <div class="datepost"><span class="daypost">26</span><span
+                                                        class="monthpost">Tháng 6 </span><span
+                                                        class="yearpost">2024</span></div>
+                                            </div>
+                                            <div class="datanews">
+                                                <div class="contentnews">
+                                                    <!--<span class="authornews">Paul Pogba</span>-->
+                                                    <h1 class="titlenews">
+                                                        <a class="title__link"
+                                                           th:href="@{/news/detail(postId=${news.id})}"
+                                                           th:utext="${news.title}"></a>
+                                                    </h1>
+                                                    <!--<a th:href="@{/news/detail(postId=${news.id})}" class="button-watch">View detail</a>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="readMore"><a th:href="@{/news}">
+                                    <button class="btn btn__readmore">XEM THÊM</button>
+                                </a></div>
+                            </div>
+                        </div>
+                        <div aria-labelledby="pills-review-tab" class="tab-pane fade" id="pills-review"
+                             role="tabpanel">
+                            <div class="tab__content">
+                                <div class="row__below row">
+                                    <div class="row__left col-md-6">
+                                        <div class="left__below row">
+                                            <div class="left__item col-12"
+                                                 th:each="review, iterStat  : ${activeReviews}"
+                                                 th:if="${iterStat.index == 0}">
+                                                <div class="item__img">
+                                                    <img class="img-fluid"
+                                                         th:alt="${review.title}"
+                                                         th:src="${review.verticalImgUrl}">
+                                                </div>
+                                                <div class="item__text">
+                                                    <a class="item__title"
+                                                       th:href="@{/reviews/detail(postId=${review.id})}"
+                                                       th:utext="${review.title}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row__right col-md-6 col-sm-12">
+                                        <ul>
+                                            <li class="right__item" th:each="review, iterStat  : ${activeReviews}"
+                                                th:if="${iterStat.index > 0}">
+                                                <a class="item__link"
+                                                   th:href="@{/reviews/detail(postId=${review.id})}">
+                                                    <div class="item__img">
+                                                        <img th:alt="${review.title}"
+                                                             th:src="${review.verticalImgUrl}">
+                                                    </div>
+                                                    <div class="item__title" th:utext="${review.title}"></div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="readMore">
+                                    <a th:href="@{/reviews}">
+                                    <button class="btn btn__readmore">XEM THÊM</button>
+                                </a></div>
+                            </div>
+                        </div>
+                        <div aria-labelledby="pills-promotion-tab" class="tab-pane fade" id="pills-promotion"
+                             role="tabpanel">
+                            <div class="swiper">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide" style="width: 240px; z-index: -4;"
+                                         th:each="promo: ${activePromos}">
+                                        <div class="item__img">
+                                            <img class="img-fluid"
+                                                 th:alt="${promo.title}"
+                                                 th:src="${promo.verticalImgUrl}">
+                                        </div>
+                                        <div class="item__text">
+                                            <a class="item__title"
+                                               th:href="@{/promotions/detail(promoId=${promo.id})}"
+                                               th:utext="${promo.title}"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="container" lang="vi" th:include="fragments/footer :: footer"></footer>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg=="
+        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"></script>
+<script type="text/javascript">
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: '4',
+        spaceBetween: 40,
+        autoplay: false,
+        /*effect: 'cards',*/
+        grabCursor: true,
+        centeredSlidesBounds: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 30,
+            stretch: 0,
+            depth: 50,
+            modifier: 1,
+            slideShadows: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+<script type="text/javascript">
+    function callAPIGetBranches() {
+        $.ajax({
+            url: "http://localhost:8080/api/branches?movieId=" + $("#selectMovie").find(":selected").val(),
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("data: " + data)
+                $("#selectBranch").html('<option value="" selected disabled hidden>Chọn Chi Nhánh</option>');
+                data.forEach(branch => {
+                    $("#selectBranch").append("<option value=" + '"' + branch['id'] + '"' + ">" + branch['name'] + "</option>")
+                });
+            },
+            error: function (error) {
+                alert(error)
+            }
+        })
+    }
+    function callAPIGetDates() {
+        $.ajax({
+            url: "http://localhost:8080/api/schedule/active/dates?movieId=" + $("#selectMovie").find(":selected").val()
+                + "&branchId=" + $("#selectBranch").find(":selected").val(),
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("data: " + data)
+                $("#selectDate").html('<option value="" selected disabled hidden>Chọn Ngày</option>');
+                data.forEach(date => {
+                    $("#selectDate").append("<option value=" + '"' + date + '"' + ">" + date + "</option>")
+                });
+            },
+            error: function (error) {
+                alert(error)
+            }
+        })
+    }
+    function callAPIGetTimes() {
+        $.ajax({
+            url: "http://localhost:8080/api/schedule/active?movieId=" + $("#selectMovie").find(":selected").val()
+                + "&branchId=" + $("#selectBranch").find(":selected").val(),
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("data: " + data)
+                selectedDate = $("#selectDate").find(":selected").val();
+                $("#selectTime").html('<option value="" selected disabled hidden>Chọn Suất</option>');
+                data.forEach(schedule => {
+                    matchDate = schedule['startDate'];
+                    if (selectedDate == matchDate) {
+                        $("#selectTime").append("<option value=" + '"' + schedule['id'] + '"' + ">" + schedule['startTime'] + "</option>")
+                    }
+                });
+            },
+            error: function (error) {
+                alert(error)
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $("#selectMovie").on("change", function () {
+            callAPIGetBranches();
+            $("#selectBranch").removeAttr('disabled');
+        })
+        $("#selectBranch").on("change", function () {
+            callAPIGetDates();
+            $("#selectDate").removeAttr('disabled');
+        })
+        $("#selectDate").on("change", function () {
+            callAPIGetTimes();
+            $("#selectTime").removeAttr('disabled');
+        })
+        $("#selectTime").on("change", function () {
+            $(".quick_booking button").removeAttr('disabled');
+            $(".quick_booking").attr("href", "/booking/"+ $("#selectTime").val());
+            /*var val = $(this).val();
+            window.location.href = "http://localhost:8081/booking/" + val;*/
+        })
+
+
+        $('#v-pills-tabContent .nav-link').first().trigger('click');
+
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            nav: true
+
+        })
+
+    });
+</script>
+<script>
+    !function (e) {
+        function r(r) {
+            for (var n, a, p = r[0], i = r[1], l = r[2], c = 0, s = []; c < p.length; c++) a = p[c], Object.prototype.hasOwnProperty.call(o, a) && o[a] && s.push(o[a][0]), o[a] = 0;
+            for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]);
+            for (f && f(r); s.length;) s.shift()();
+            return u.push.apply(u, l || []), t()
+        }
+
+        function t() {
+            for (var e, r = 0; r < u.length; r++) {
+                for (var t = u[r], n = !0, p = 1; p < t.length; p++) {
+                    var i = t[p];
+                    0 !== o[i] && (n = !1)
+                }
+                n && (u.splice(r--, 1), e = a(a.s = t[0]))
+            }
+            return e
+        }
+
+        var n = {}, o = {1: 0}, u = [];
+
+        function a(r) {
+            if (n[r]) return n[r].exports;
+            var t = n[r] = {i: r, l: !1, exports: {}};
+            return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports
+        }
+
+        a.m = e, a.c = n, a.d = function (e, r, t) {
+            a.o(e, r) || Object.defineProperty(e, r, {enumerable: !0, get: t})
+        }, a.r = function (e) {
+            "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {value: "Module"}), Object.defineProperty(e, "__esModule", {value: !0})
+        }, a.t = function (e, r) {
+            if (1 & r && (e = a(e)), 8 & r) return e;
+            if (4 & r && "object" == typeof e && e && e.__esModule) return e;
+            var t = Object.create(null);
+            if (a.r(t), Object.defineProperty(t, "default", {
+                enumerable: !0,
+                value: e
+            }), 2 & r && "string" != typeof e) for (var n in e) a.d(t, n, function (r) {
+                return e[r]
+            }.bind(null, n));
+            return t
+        }, a.n = function (e) {
+            var r = e && e.__esModule ? function () {
+                return e.default
+            } : function () {
+                return e
+            };
+            return a.d(r, "a", r), r
+        }, a.o = function (e, r) {
+            return Object.prototype.hasOwnProperty.call(e, r)
+        }, a.p = "/";
+        var p = this.webpackJsonpmoviereactapp = this.webpackJsonpmoviereactapp || [], i = p.push.bind(p);
+        p.push = r, p = p.slice();
+        for (var l = 0; l < p.length; l++) r(p[l]);
+        var f = i;
+        t()
+    }([])</script>
+</body>
+</html>

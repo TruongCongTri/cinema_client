@@ -1,0 +1,98 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
+.hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.image {
+    position: relative;
+    border-radius: 10px;
+}
+img {
+    display: block;
+    margin: auto;
+}
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.6s;
+    opacity: 0;
+    border-radius: 10px;
+}
+.content:hover {
+    opacity: 1;
+}
+.content p {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.content > *{
+    transform: translateY(25px);
+    transition: transform 0.6s;
+}
+.content:hover > *{
+    transform: translateY(0px);
+    transition: transform 0.6s;
+}
+
+.bookTicket-btn {
+    margin-top: 10px;
+    color: #fff;
+    padding: 5px 25px;
+    background-color: #60c5ef;
+    border: 1px solid #60c5ef;
+    border-radius: 4px;
+    outline: none;
+    transition: all .2s
+}
+
+.bookTicket-btn:hover {
+    opacity: .7
+}
+.bookTicket-btn:hover[disabled] {
+
+}
+
+.playTrailer-btn {
+    margin-top: 10px;
+    color: #fff;
+    padding: 5px 25px;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 4px;
+    outline: none;
+    transition: all .2s
+}
+
+.playTrailer-btn:hover {
+    opacity: .7
+}
+
+#trailer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 100px;
+    left: 0;
+    display: none;
+}
+
+.mfp-hide {
+    display: none !important;
+}
