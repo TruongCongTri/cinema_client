@@ -38,7 +38,7 @@ public class PostController {
     public String displayReviewPage(Model model, HttpServletRequest request){
         System.out.println("LOG: accessing reviews page");
         // call API get all reviews
-        ResponseEntity<PostDTO[]> response = restTemplate.getForEntity(API_GET_ACTIVE_NEWS, PostDTO[].class);
+        ResponseEntity<PostDTO[]> response = restTemplate.getForEntity(API_GET_ACTIVE_REVIEWS, PostDTO[].class);
         PostDTO[] posts = response.getBody();
         model.addAttribute("posts",posts);
 
@@ -54,7 +54,7 @@ public class PostController {
     public String displayNewsPage(Model model, HttpServletRequest request){
         System.out.println("LOG: accessing news page");
         // call API get all news
-        ResponseEntity<PostDTO[]> response = restTemplate.getForEntity(API_GET_ACTIVE_REVIEWS, PostDTO[].class);
+        ResponseEntity<PostDTO[]> response = restTemplate.getForEntity(API_GET_ACTIVE_NEWS, PostDTO[].class);
         PostDTO[] posts = response.getBody();
         model.addAttribute("posts",posts);
 

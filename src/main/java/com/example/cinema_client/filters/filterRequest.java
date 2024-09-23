@@ -45,9 +45,9 @@ public class filterRequest implements Filter {
         JwtResponseDTO jwtResponseDTO = (JwtResponseDTO) session.getAttribute("jwtResponse");
 
         if (req.getRequestURI().contains("/admin")) { // when access to uri requires admin authorization
-            if (jwtResponseDTO != null) { // if logged in
+            if (jwtResponseDTO != null) { // verify whether logged in
                 for (Role role : jwtResponseDTO.getRoles()) {
-                    if (role.equals("ROLE_ADMIN")) { // if has admin authorization
+                    if (role.equals("ROLE_ADMIN")) { //verify whether roles have admin authorization
                         chain.doFilter(request, response);
                         return; // then gain access to requested page
                     }
@@ -59,7 +59,7 @@ public class filterRequest implements Filter {
             if (req.getRequestURI().contains("/booking")
                     || req.getRequestURI().contains("/payment")
                     || req.getRequestURI().contains("/account")) { // when access to uri requires member authorization
-                if (jwtResponseDTO == null) { // if haven't logged in
+                if (jwtResponseDTO == null) { //verify whether haven't logged in
                     res.sendRedirect("/login"); // then return login page
                     return;
                 }

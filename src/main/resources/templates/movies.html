@@ -57,7 +57,7 @@
                                     <a th:href="@{/movies/detail(movieId=*{id})}" id="btn-buy-ticket">
                                         <button class="bookTicket-btn">Mua vé <i class='fas fa-ticket-alt'></i></button>
                                     </a>
-                                    <a href="#trailer" class="button" id="play-trailer">
+                                    <a th:href="@{/movies/detail(movieId=*{id})}" class="button" id="play-trailer">
                                         <button class="playTrailer-btn">Trailer <i class="fa fa-play-circle"></i></button>
                                     </a>
                                 </div>

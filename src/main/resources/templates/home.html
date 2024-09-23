@@ -234,7 +234,7 @@
                                                     <!--<span class="authornews">Paul Pogba</span>-->
                                                     <h1 class="titlenews">
                                                         <a class="title__link"
-                                                           th:href="@{/news/detail(postId=${news.id})}"
+                                                           th:href="@{/posts/detail(postId=${news.id})}"
                                                            th:utext="${news.title}"></a>
                                                     </h1>
                                                     <!--<a th:href="@{/news/detail(postId=${news.id})}" class="button-watch">View detail</a>-->
@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="readMore"><a th:href="@{/news}">
+                                <div class="readMore"><a th:href="@{/posts/news}">
                                     <button class="btn btn__readmore">XEM THÊM</button>
                                 </a></div>
                             </div>
@@ -264,7 +264,7 @@
                                                 </div>
                                                 <div class="item__text">
                                                     <a class="item__title"
-                                                       th:href="@{/reviews/detail(postId=${review.id})}"
+                                                       th:href="@{/posts/detail(postId=${review.id})}"
                                                        th:utext="${review.title}"></a>
                                                 </div>
                                             </div>
@@ -287,7 +287,7 @@
                                     </div>
                                 </div>
                                 <div class="readMore">
-                                    <a th:href="@{/reviews}">
+                                    <a th:href="@{/posts/reviews}">
                                     <button class="btn btn__readmore">XEM THÊM</button>
                                 </a></div>
                             </div>
