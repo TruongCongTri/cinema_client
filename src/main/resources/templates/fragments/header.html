@@ -8,14 +8,12 @@
         <div class="header__mobile">
             <div class="header__login" style="display: flex;" th:if="${session.jwtResponse != null}">
                 <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/account/profile}">
-                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
                     <span class="login__text" th:text="${session.jwtResponse.name}"></span>
                 </a>
                 <a style="background: #ffc107;" class="btn"  th:href="@{/sign-out}">ĐĂNG XUẤT</a>
             </div>
             <div class="header__login" style="display: flex;" th:if="${session.jwtResponse == null}">
                 <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/login}">
-                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
                     <span class="login__text">ĐĂNG NHẬP</span>
                 </a>
             </div>
@@ -103,14 +101,12 @@
 
             <div class="header__login" th:if="${session.jwtResponse != null}">
                 <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/account/profile}">
-                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
                     <span class="login__text" th:text="${session.jwtResponse.name}"></span>
                 </a>
                 <a style="background: #ffc107;" class="btn" th:href="@{/sign-out}">ĐĂNG XUẤT</a>
             </div>
             <div class="header__login"  th:if="${session.jwtResponse == null}">
                 <a class="login__link" aria-haspopup="true" style="cursor: pointer;" th:href="@{/login}">
-                    <!--<img src="https://i.ibb.co/PCjW83Y/avt.png" alt="user">-->
                     <span class="login__text">ĐĂNG NHẬP</span></a>
             </div>
         </div>

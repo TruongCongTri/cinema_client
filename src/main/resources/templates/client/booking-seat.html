@@ -51,18 +51,6 @@
             <div class="checkOut__left col-md-9 col-sm-12 p-0">
                 <div class="bookSlot">
                     <div class="bookSlot__content" style="overflow-x: scroll;">
-                        <!--<div class="theater__info d-flex justify-content-between">
-                            <div class="theater__img d-flex">
-                                <img alt="poster" th:src="${schedule.movie.smallImageURL}">
-                                <div class="theater__name">
-										<span class="name">
-                                            <span class="subname" th:text="${schedule.room.name}"></span>
-										</span>
-                                    <p class="showtime" th:text="'Ngày chiếu: '+${schedule.startDate}"></p>
-                                    <p class="showtime" th:text="'Giờ chiếu: '+${schedule.startTime}"></p>
-                                </div>
-                            </div>
-                        </div>-->
                         <div class="chooseSlot" style="width: 850px">
                             <div class="screen__img">
                                 <img th:src="@{https://i.ibb.co/W0CgD68/screen.png}" alt="screen">
@@ -194,28 +182,6 @@
     </div>
     <footer lang="vi" class="container" th:include="fragments/footer :: footer" />
 </div>
-<!--<div id="success" class="swal-overlay notify " tabindex="-1">
-    <div class="swal-modal" role="dialog" aria-modal="true">
-        <div class="swal-icon swal-icon&#45;&#45;success">
-            <span class="swal-icon&#45;&#45;success__line swal-icon&#45;&#45;success__line&#45;&#45;long"></span>
-            <span class="swal-icon&#45;&#45;success__line swal-icon&#45;&#45;success__line&#45;&#45;tip"></span>
-            <div class="swal-icon&#45;&#45;success__ring"></div>
-            <div class="swal-icon&#45;&#45;success__hide-corners"></div>
-        </div>
-        <div class="swal-title">Thanh toán thành công</div>
-        <div class="swal-text" style=""></div>
-        <div class="swal-footer">
-            <div class="swal-button-container">
-                <button class="swal-button swal-button&#45;&#45;confirm">ĐỒNG Ý</button>
-                <div class="swal-button__loader">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
 <div id="error" class="swal-overlay notify" tabindex="-1">
     <div class="swal-modal" role="dialog" aria-modal="true">
         <div class="swal-icon swal-icon--error">
@@ -270,31 +236,35 @@
         const price=$(".price");
         // css seat
         $(".slot__item").click(function(){
-            const priceSeat=Number($(this).data("price"))
+            const priceSeat = Number($(this).data("price"))
 
             const codeSeat=$(this).data("seat")
             const seatId=$(this).data("seatId")
             if(!$(this).hasClass("item--picked") && !$(this).hasClass("item--checked"))
                 if($(this).hasClass("item--picking")){
                     $(this).removeClass("item--picking");
-                    current=Number(price.data("price")-priceSeat)
+                    current = Number(price.data("price")-priceSeat)
                     price.text(current.toLocaleString('en-US', {style : 'currency', currency : 'VND'}));
                     price.data("price",current)
                     $.each($(".mr-2"), function(index,seat){
 
-                        if(seat.textContent==codeSeat+", "){
+                        if(seat.textContent==codeSeat+" "){
                             seat.remove()
                         }
                     })
+
                     dataParameter.splice(dataParameter.indexOf(seatId), 1);
-                } else{
+
+                }
+                else{
                     $(this).addClass("item--picking");
-                    current=Number(price.data("price")+priceSeat)
+                    current = Number(price.data("price")+priceSeat)
 
                     price.text(current.toLocaleString('en-US', {style : 'currency', currency : 'VND'}));
                     price.data("price",current)
-                    $(".slot").append('<span class="mr-2">'+codeSeat+',</span>')
+                    $(".slot").append('<span class="mr-2">'+codeSeat+' </span>')
                     dataParameter.push(seatId)
+
                 }
         });
         //clock time

@@ -3,7 +3,7 @@
 <head>
     <title>Cineplex</title>
     <meta name="theme-color" content="#000000">
-    <link rel="icon" href="favicon.ico">
+    <!--<link rel="icon" href="favicon.ico">-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet"/>
@@ -435,8 +435,6 @@
         $("#selectTime").on("change", function () {
             $(".quick_booking button").removeAttr('disabled');
             $(".quick_booking").attr("href", "/booking/"+ $("#selectTime").val());
-            /*var val = $(this).val();
-            window.location.href = "http://localhost:8081/booking/" + val;*/
         })
 
 

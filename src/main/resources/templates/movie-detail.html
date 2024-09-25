@@ -27,16 +27,6 @@
             <div class="full__background">
             	<img th:src="*{largeImageURL}" th:alt="*{name}" style="height: 450px;">
                 <div class="overlay__gradient"></div>
-                <!--<div class="rating__point">
-                    <p class="film__point">10</p>
-                    <div class="rating__stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                </div>-->
             </div>
             <div class="form__info container">
                 <div class="row">
@@ -64,13 +54,6 @@
                                 <th:block th:text="${#numbers.formatDecimal(rating, 0, 'COMMA', 1, 'POINT')}"></th:block>
                                 <div class="rating-circle"></div>
                             </div>
-                            <!--<div class="rating__stars">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>-->
                             <div class="rating__text">
                                 <th:block th:text="${movie.reviews.size}"></th:block>
                                 lượt đánh giá
@@ -224,13 +207,6 @@
                                     <img src="https://i.ibb.co/hsrZ5zT/user-icon.jpgg" alt="avt"><span
                                         class="items__text">Đánh giá phim...</span>
                                 </div>
-                                <!--<div class="items__stars">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>-->
                             </div>
 
                         </div>

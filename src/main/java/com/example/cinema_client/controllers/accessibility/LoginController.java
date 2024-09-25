@@ -107,7 +107,7 @@ public class LoginController {
                 ResponseEntity<JwtResponseDTO> jwtResponse
                         = restTemplate.exchange(API_REGISTER, HttpMethod.POST, httpEntity, JwtResponseDTO.class);
                 request.getSession().setAttribute("jwtResponse", jwtResponse.getBody());
-            }catch (HttpClientErrorException ex){
+            } catch (HttpClientErrorException ex){
                 model.addAttribute("registerError",ex.getResponseBodyAsString());
                 model.addAttribute("hasErrors", true);
                 model.addAttribute("user",user);

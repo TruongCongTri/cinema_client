@@ -128,8 +128,6 @@
         $("#selectTime").on("change", function () {
             $(".quick_booking button").removeAttr('disabled');
             $(".quick_booking").attr("href", "/booking/"+ $("#selectTime").val());
-            /*var val = $(this).val();
-            window.location.href = "http://localhost:8081/booking/" + val;*/
         })
     });
 </script>
