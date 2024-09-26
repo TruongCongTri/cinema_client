@@ -90,6 +90,7 @@ public class ManageSchedulesController {
     @PostMapping("/add")
     public String addSchedulePage(
             @ModelAttribute("schedule") ScheduleDTO schedule,
+            @RequestParam(name = "checkActive", required = false, defaultValue = "false") boolean checkActive,
             HttpSession session,Model model){
         System.out.println("LOG: trying to create new schedule");
         // attach the JWT access token to the header to send it with the request
@@ -97,6 +98,12 @@ public class ManageSchedulesController {
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         JwtResponseDTO jwtResponseDTO = (JwtResponseDTO) session.getAttribute("jwtResponse");
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
+
+        //check if schedule status is active or not
+        if(checkActive)
+            schedule.setIsActive(1);
+        else
+            schedule.setIsActive(0);
 
         HttpEntity<ScheduleDTO> entity = new HttpEntity<>(schedule,headers);
         try {
@@ -161,6 +168,7 @@ public class ManageSchedulesController {
     @PostMapping("/update")
     public String updateSchedulePage(
             @ModelAttribute("schedule") ScheduleDTO schedule,
+            @RequestParam(name = "checkActive", required = false, defaultValue = "false") boolean checkActive,
             HttpSession session, Model model){
         System.out.println("LOG: trying to update schedule");
         // attach the JWT access token to the header to send it with the request
@@ -168,6 +176,12 @@ public class ManageSchedulesController {
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         JwtResponseDTO jwtResponseDTO = (JwtResponseDTO) session.getAttribute("jwtResponse");
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
+
+        //check if schedule status is active or not
+        if(checkActive)
+            schedule.setIsActive(1);
+        else
+            schedule.setIsActive(0);
 
         HttpEntity<?> entity = new HttpEntity<>(schedule,headers);
         try {

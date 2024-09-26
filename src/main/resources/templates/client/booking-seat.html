@@ -66,7 +66,7 @@
                                                 (${seat.isVip} ? 'item--vip':''))):
                                                  'item--hidden item--picked'"
                                            th:data-seat="${seat.name}"
-                                           th:data-price="${seat.isVip}? ${schedule.price} + 50000 : ${schedule.price}"
+                                           th:data-price="${seat.isVip}? ${schedule.price} + ${vipPrice} : ${schedule.price}"
                                            th:data-seat-id="${seat.id}"></i>
                                     </div>
 

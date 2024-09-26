@@ -63,11 +63,10 @@ public class ManageActorsController {
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
 
         // check if actor status is active or not
-        if(checkActive) {
+        if(checkActive)
             actor.setIsActive(1);
-        } else {
+        else
             actor.setIsActive(0);
-        }
 
         HttpEntity<ActorDTO> entity = new HttpEntity<>(actor, headers);
         try {
@@ -125,8 +124,8 @@ public class ManageActorsController {
             actor.setIsActive(1);
         else
             actor.setIsActive(0);
-        HttpEntity<?> entity = new HttpEntity<>(actor,headers);
 
+        HttpEntity<?> entity = new HttpEntity<>(actor,headers);
         try {
             ResponseEntity<String> response = restTemplate.exchange(API_ACTORS,HttpMethod.PUT,entity,String.class);
             System.out.println("SUCCESS: Update actor");

@@ -157,7 +157,7 @@
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 console.log("data: "+data)
-                $("#listRoom").html('<option value="" selected disabled hidden>Select Room</option>');
+                $("#listRoom").html('<option value="" selected disabled hidden>Chon phòng chiếu</option>');
                 data.forEach(room => {
                     $("#listRoom").append("<option value=" + '"' + room['id'] + '"' + ">" + room['name'] + "</option>")
                 });

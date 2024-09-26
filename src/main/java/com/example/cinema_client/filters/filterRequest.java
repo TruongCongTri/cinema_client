@@ -58,7 +58,8 @@ public class filterRequest implements Filter {
         } else {
             if (req.getRequestURI().contains("/booking")
                     || req.getRequestURI().contains("/payment")
-                    || req.getRequestURI().contains("/account")) { // when access to uri requires member authorization
+                    || req.getRequestURI().contains("/account")
+                    || req.getRequestURI().contains("/ticket")) { // when access to uri requires member authorization
                 if (jwtResponseDTO == null) { //verify whether haven't logged in
                     res.sendRedirect("/login"); // then return login page
                     return;

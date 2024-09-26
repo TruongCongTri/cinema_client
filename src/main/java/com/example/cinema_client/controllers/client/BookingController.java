@@ -29,6 +29,8 @@ import com.example.cinema_client.models.JwtResponseDTO;
 import com.example.cinema_client.models.ScheduleDTO;
 import com.example.cinema_client.models.SeatDTO;
 
+import static com.example.cinema_client.constants.DefaultConfig.VIP_PRICE;
+
 
 /**
  * @author tritcse00526x
@@ -96,6 +98,8 @@ public class BookingController {
                 })
                 .collect(Collectors.toList()));
 
+        // send default VIP seat price
+        model.addAttribute("vipPrice", VIP_PRICE);
         return "client/booking-seat";
     }
 

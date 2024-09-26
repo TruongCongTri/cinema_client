@@ -102,6 +102,10 @@ public class ManageAccountsController {
                     ro.setName(r);
                     roles.add(ro);
                 }
+            } else {
+                Role ro = new Role();
+                ro.setName("ROLE_CLIENT");
+                roles.add(ro);
             }
             // set roles for user
             user.setRoles(roles);
@@ -172,6 +176,10 @@ public class ManageAccountsController {
                     ro.setName(r);
                     roles.add(ro);
                 }
+            } else {
+                    Role ro = new Role();
+                    ro.setName("ROLE_CLIENT");
+                    roles.add(ro);
             }
             user.setRoles(roles);
             HttpEntity<User> entity = new HttpEntity<>(user,headers);

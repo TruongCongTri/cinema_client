@@ -1,10 +1,5 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"/>
-
-    &lt;!&ndash; ticket styling &ndash;&gt;
-    <link th:href="@{/css/ticket.css}" rel="stylesheet"/>-->
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
         @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
@@ -18,7 +13,7 @@
         html {
             height: 100vh;
             display: grid;
-            font-family: "Staatliches", cursive;
+            font-family: "Courier New", sans-serif;
             background: #fff3cd;
             color: black;
             font-size: 14px;
@@ -109,7 +104,7 @@
 
         .show-name {
             font-size: 32px;
-            font-family: "Nanum Pen Script", cursive;
+            font-family: "Nunito", cursive;
             color: #60c5ef;
         }
 
@@ -192,7 +187,6 @@
         }
     </style>
 
-
 <div class="ticket created-by-anniedotexe" th:object="${ticket}">
     <!--<th:block th:each="ticket, tktIndex : ${bill.tickets}" th:object="${ticket}">
     <th:block th:if="${tktIndex.index < 1}">-->
@@ -217,50 +211,50 @@
                         <span>2021</span>
                     </p>-->
                     <p class="date">
-                        <span th:text="*{schedule.startDate.getDayOfWeek()}">TUESDAY</span>
+                        <span th:text="*{schedule.startDate.getDayOfWeek()}">Date of the week</span>
                         <span class="june-29" th:text="*{schedule.startDate.getMonth()
                         + ' '
-                        + schedule.startDate.getDayOfMonth()}">JUNE 29TH</span>
-                        <span th:text="*{schedule.startDate.getYear()}">2024</span>
+                        + schedule.startDate.getDayOfMonth()}">Month Day</span>
+                        <span th:text="*{schedule.startDate.getYear()}">Year</span>
                     </p>
                     <!--<div class="show-name">
                         <h1>SOUR Prom</h1>
                         <h2>Olivia Rodrigo</h2>
                     </div>-->
                     <div class="show-name">
-                        <h3 th:text="*{schedule.movie.name}">The Boy and The Heron</h3>
-                        <h5>Phong <span th:text="*{schedule.room.name}">01</span></h5>
+                        <h3 th:text="*{schedule.movie.name}">Movie</h3>
+                        <h5>Phòng <span th:text="*{schedule.room.name}">Room</span></h5>
                     </div>
                     <!--<div class="time">
                         <p>8:00 PM <span>TO</span> 11:00 PM</p>
                         <p>DOORS <span>@</span> 7:00 PM</p>
                     </div>-->
                     <div class="time">
-                        <p>Suat chieu: <span th:text="*{schedule.startTime}">8:00 PM</span></p>
-                        <p>Ghe: <span th:text="*{seat.name}">F1</span></p>
+                        <p>Suất Chiếu: <span th:text="*{schedule.startTime}">Time</span></p>
+                        <p>Ghế: <span th:text="*{seat.name}">Seat</span></p>
                     </div>
                     <!--<p class="location">
                         <span>East High School</span>
                         <span class="separator"><i class="far fa-smile"></i></span><span>Salt Lake City, Utah</span>
                     </p>-->
                     <p class="location">
-                        <strong><span th:text="'Rạp' + *{schedule.branch.name}">Sala</span></strong>
+                        <strong><span th:text="*{schedule.branch.name}">Branch</span></strong>
                         <span class="separator"><i class="far fa-smile"></i></span>
-                        <span th:text="*{schedule.branch.city.province}">Ho Chi Minh</span>
+                        <span th:text="*{schedule.branch.city.province}">City</span>
                     </p>
                 </div>
             </div>
             <div class="right">
                 <p class="admit-one">
-                    <span>ADMIT ONE</span>
-                    <span>ADMIT ONE</span>
-                    <span>ADMIT ONE</span>
+                    <span>TICKET</span>
+                    <span>TICKET</span>
+                    <span>TICKET</span>
                 </p>
                 <div class="right-info-container">
                     <!--<div class="barcode">
                         <img src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb" alt="QR code">
                     </div>-->
-                    <p class="ticket-number">
+                    <p class="admit-one">
                         <span th:text="*{qrCode}"></span>
                     </p>
                 </div>
@@ -268,4 +262,10 @@
         </div>
     <!--</th:block>
     </th:block>-->
+
 </div>
+    <div class="ticket created-by-anniedotexe">
+
+        <a th:href="@{/account/profile}">TRỞ VỀ</a>
+
+    </div>

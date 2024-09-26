@@ -64,10 +64,11 @@ public class ManageDirectorsController {
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
 
         //check if director status is active or not
-        if(checkActive) {
+        if(checkActive)
             director.setIsActive(1);
-        } else {director.setIsActive(0);
-        }
+        else
+            director.setIsActive(0);
+
 
         HttpEntity<DirectorDTO> entity = new HttpEntity<>(director, headers);
         try {

@@ -64,9 +64,9 @@
         </div>
     </div>
     <!--END - promotion slide show-->
-    <div class="animated fadeIn" style="animation-duration: 1s; opacity: 1;">
+    <div class="animated fadeIn" style="animation-duration: 1s; opacity: 1;" id="bookingTab">
         <section class="schedule container mx-auto" id="schedule">
-            <div id="bookingTab">
+            <div >
                 <div class="schedule__content">
                     <div class="row" >
                         <!--form-->
@@ -275,7 +275,7 @@
                                             <li class="right__item" th:each="review, iterStat  : ${activeReviews}"
                                                 th:if="${iterStat.index > 0}">
                                                 <a class="item__link"
-                                                   th:href="@{/reviews/detail(postId=${review.id})}">
+                                                   th:href="@{/posts/detail(postId=${review.id})}">
                                                     <div class="item__img">
                                                         <img th:alt="${review.title}"
                                                              th:src="${review.verticalImgUrl}">
