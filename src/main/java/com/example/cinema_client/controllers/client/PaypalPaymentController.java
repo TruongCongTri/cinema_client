@@ -66,9 +66,14 @@ public class PaypalPaymentController {
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
+        // split orderId - get first string - before P
         String[] objects = orderId.split("P");
+        // get schedule ID
         Integer scheduleId = Integer.parseInt(objects[0]);
+
         // convert list of seat ids to list of integer
+        // split orderId - get second string - after P
+        // each seatId is seperated by regex -
         List<Integer> listSeatIds = Arrays
                 .stream(objects[1].split("T")[0].split("-"))
                 .map(Integer::parseInt)
@@ -86,13 +91,14 @@ public class PaypalPaymentController {
                         "Ghế đã có người đặt thành công, vui lòng chọn ghế khác!");
                 model.addAttribute("errorStatus", 1000);
                 return "errorPage";*/
-
+                System.out.println("FAIL: Pay via PayPal - occupied seat");
                 session.setAttribute("bookedError", message);
                 return "redirect:/booking/"+scheduleId;
             }
             bookingSeatStore.get(scheduleId).put(seatId, expiredDateTime);
         }
 
+        // convert amount from USD to VND based on exchange rate
         Map<String, String> listRequestParam = new HashMap<>();
         listRequestParam.put("currency", "USD");
         listRequestParam.put("vndMoney", String.valueOf(amount));
@@ -108,15 +114,16 @@ public class PaypalPaymentController {
 
         String orderInfo = "Payment for buying movie ticket with Paypal";
         String errorMessage = "Đã xảy ra lỗi không thể thanh toán bằng Paypal!";
+
         try {
             Payment payment = paypalService.createPayment(
                     Currency.USD,
                     total,
                     PaypalPaymentMethod.paypal,
                     PaypalPaymentIntent.sale,
-                    PaymentConstants.REDIRECT_PAYMENT + "?orderId=" + orderId + "&resultCode=2",
+                    PaymentConstants.REDIRECT_PAYMENT + "?orderId=" + orderId + "&amount=" + amount + "&resultCode=2",
                     PaymentConstants.REDIRECT_PAYMENT + "?orderId=" + orderId + "&amount=" + amount + "&resultCode=0",
-                    "Payment for buying movie ticket with paypal");
+                    orderInfo);
 
             return "redirect:" + payment.getLinks()
                     .stream()
@@ -126,9 +133,10 @@ public class PaypalPaymentController {
                     .getHref()
                     + "&orderId=" + orderId;
         } catch (PayPalRESTException e) {
-            System.out.println("Error payment");
+            System.out.println("FAIL: Pay via PayPal - unsuccessful payment");
             e.printStackTrace();
         } catch (Exception e) {
+            System.out.println("FAIL: Pay via PayPal - unsuccessful payment");
             session.setAttribute("bookedError", errorMessage);
             e.printStackTrace();
         }

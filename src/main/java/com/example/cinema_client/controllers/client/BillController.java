@@ -15,9 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +46,8 @@ public class BillController {
             JwtResponseDTO jwtResponseDTO = (JwtResponseDTO) session.getAttribute("jwtResponse");
             headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwtResponseDTO.getAccessToken());
 
+            // split orderId - get first string - before P
+            // get schedule ID
             String[] objects = orderId.split("P");
 
             // pack user id, schedule id and list of seat id to request then send
@@ -57,6 +57,8 @@ public class BillController {
             body.setScheduleId(Integer.parseInt(objects[0]));
 
             // change from seat id list to list of Integer
+            // split orderId - get second string - after P
+            // each seatId is seperated by regex -
             List<Integer> listSeatIds = Arrays.stream(objects[1].split("T")[0].split("-")).map(Integer::parseInt)
                     .collect(Collectors.toList());
             body.setSeatIds(listSeatIds);
@@ -78,7 +80,10 @@ public class BillController {
                 session.setAttribute("bookedError", message);
                 return "redirect:/booking/"+Integer.parseInt(objects[0]);
             }
+        } else {
+            System.out.println("FAIL: Create new bill - unsuccessful payment");
         }
+
         return "redirect:/account/profile";
     }
 

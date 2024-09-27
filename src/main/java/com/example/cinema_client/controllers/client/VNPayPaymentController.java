@@ -1,5 +1,22 @@
 package com.example.cinema_client.controllers.client;
 
+import com.example.cinema_client.constants.PaymentConstants;
+import com.example.cinema_client.models.JwtResponseDTO;
+import com.example.cinema_client.payment.vnpay.service.VNPayService;
+import com.mservice.shared.utils.LogUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,48 +24,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.example.cinema_client.constants.PaymentConstants;
-import com.example.cinema_client.models.JwtResponseDTO;
-import com.mservice.config.Environment;
-import com.mservice.enums.RequestType;
-import com.mservice.models.PaymentResponse;
-import com.mservice.processor.CreateOrderMoMo;
-import com.mservice.shared.utils.LogUtils;
-
 import static com.example.cinema_client.constants.ExpiryBookingTime.EXPIRY_BOOKING_TIME;
 
 /**
  * @author tritcse00526x
  */
 @Controller
-@RequestMapping("/payment/momo")
-public class MomoPaymentController {
+@RequestMapping("/payment/vnpay")
+public class VNPayPaymentController {
+    @Autowired
+    private VNPayService vnPayService;
+
     @Qualifier("bookingSeatStore")
     @Autowired
     Map<Integer, Map<Integer, LocalDateTime>> bookingSeatStore;
+    @Autowired
+    private RestTemplate restTemplate;
 
-    /**TODO: MOMO page*/
     @GetMapping("/{orderId}")
-    public String displayMomoPage(
+    public String displayRoomAndSeat(
             @PathVariable(name = "orderId") String orderId,
             @RequestParam long amount,
             HttpServletRequest request, Model model) {
-        System.out.println("LOG: accessing momo payment method page");
+        System.out.println("LOG: accessing vnpay payment method page");
         LogUtils.init();
         HttpSession session = request.getSession();
         // attach the JWT access token to the header to send it with the request
@@ -79,50 +77,52 @@ public class MomoPaymentController {
         for (Integer seatId : listSeatIds) {
             if (bookingSeatStore.get(scheduleId).containsKey(seatId)
                     && bookingSeatStore.get(scheduleId).get(seatId).compareTo(now) > 0) { // check if selected seat is unavailable
-                /*model.addAttribute("errorMsg",
-                        "Ghế đã có người đặt thành công, vui lòng chọn ghế khác!");
-                model.addAttribute("errorStatus", 1000);
-                return "errorPage";*/
-                System.out.println("FAIL: Pay via MoMo - occupied seat");
+                System.out.println("FAIL: Pay via VNPay - occupied seat");
                 session.setAttribute("bookedError", message);
                 return "redirect:/booking/"+scheduleId;
             }
             bookingSeatStore.get(scheduleId).put(seatId, expiredDateTime);
         }
 
-        String requestId = String.valueOf(System.currentTimeMillis());
-        session.setAttribute("orderId", orderId);
-        session.setAttribute("requestId", requestId);
-        Environment environment = Environment.selectEnv("dev");
-
-        String orderInfo = "Payment for buying movie ticket with Momo";
-        String errorMessage = "Đã xảy ra lỗi không thể thanh toán bằng Momo!";
+        String orderInfo = "Payment for buying movie ticket with VNPay";
+        String errorMessage = "Đã xảy ra lỗi không thể thanh toán bằng VNPay!";
 
         try {
-            PaymentResponse captureATMMoMoResponse = CreateOrderMoMo.process(
-                    environment,
-                    orderId,
-                    requestId,
-                    Long.toString(amount),
-                    orderInfo,
-                    PaymentConstants.REDIRECT_PAYMENT,
-                    PaymentConstants.NOTIFY_PAYMENT,
-                    "",
-                    RequestType.CAPTURE_WALLET,
-                    true);
-            if (captureATMMoMoResponse.getResultCode() != 0) {
-                System.out.println("FAIL: Pay via MoMo - unsuccessful payment");
-                throw new Exception();
-            } else {
-                System.out.println("SUCCESS: Pay via MoMo - process to next step");
-                return "redirect:" + captureATMMoMoResponse.getPayUrl();
-            }
+            int amountInInt = Long.valueOf(amount).intValue();
+            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            String vnpayUrl = vnPayService.createOrder(amountInInt, orderId, baseUrl);
+
+            return "redirect:" + vnpayUrl;
         } catch (Exception e) {
-            System.out.println("FAIL: Pay via MoMo - unsuccessful payment");
             session.setAttribute("bookedError", errorMessage);
             e.printStackTrace();
         }
 
-        return "redirect:/booking/"+scheduleId;
+        return "redirect:/booking/" + scheduleId;
+    }
+
+    @GetMapping("/vnpay-payment")
+    public String GetMapping(
+            HttpServletRequest request, Model model){
+        System.out.println("LOG: verifying VNPay payment");
+        int paymentStatus = vnPayService.orderReturn(request);
+        String orderId = request.getParameter("vnp_OrderInfo");
+        String totalPrice = request.getParameter("vnp_Amount");
+        Integer amountInInt = Integer.valueOf(totalPrice);
+        String returnUrl = PaymentConstants.REDIRECT_PAYMENT + "?orderId=" + orderId + "&amount=" + amountInInt + "&resultCode=0";
+        String cancelUrl = PaymentConstants.REDIRECT_PAYMENT + "?orderId=" + orderId + "&amount=" + amountInInt + "&resultCode=1";
+
+        if (paymentStatus == 1) {
+            try {
+                System.out.println("SUCCESS: Pay via VNPay - process to create bill");
+                return "redirect:" + returnUrl;
+            } catch (Exception e) {
+                System.out.println("FAIL: Pay via VNPay - unsuccessful payment");
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println("FAIL: Pay via VNPay - unsuccessful payment");
+        return "redirect:" + cancelUrl;
     }
 }

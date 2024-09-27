@@ -291,6 +291,7 @@
                 // type of payment
                 // schedule id
                 // total amount of money
+                // FORMAT: /payment/typeOfPayment/scheduleId+P+seatName-seatName...+T+bookingTime+?amount=price
                 var momoUrl = "/payment/"+$(this).data('pay')+"/" + [[${schedule.id}]]+"P"+dataParameter.join("-")+'T'+milis+"?amount="+price.data('price');
                 window.location.href = momoUrl;
             }
